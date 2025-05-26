@@ -78,8 +78,7 @@ return {
     },
     opts = {
       ensure_installed = { "clangd" }, -- 自动安装的LSP
-      automatic_installation = true    -- 自动安装缺失的LSP
-    }
+   }
   },
 
   -- LSP 核心配置
@@ -129,7 +128,6 @@ return {
           semanticHighlighting = true
         }
       })
-
       -- 全局LSP配置（适用于所有语言服务器）
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
@@ -142,7 +140,7 @@ return {
     end
   },
 
-  -- 可选：增强诊断显示
+   -- 可选：增强诊断显示
   {
     "folke/trouble.nvim",
     opts = {
