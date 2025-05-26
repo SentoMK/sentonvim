@@ -78,8 +78,7 @@ return {
     },
     opts = {
       ensure_installed = { "clangd" }, -- 自动安装的LSP
-      automatic_installation = true    -- 自动安装缺失的LSP
-    }
+   }
   },
 
   -- LSP 核心配置
