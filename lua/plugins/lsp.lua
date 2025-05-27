@@ -126,6 +126,7 @@ return {
         }
       })
       
+      -- rust_analyzer 配置
       require('lspconfig').rust_analyzer.setup({
         capabilities = capabilities,
         on_attach = function(client, bufnr)
@@ -147,6 +148,37 @@ return {
             },
             procMacro = {
               enable = true
+            }
+          }
+        }
+      })
+
+      -- Lua 语言服务器配置
+      require('lspconfig').lua_ls.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          -- 自定义快捷键
+          local opts = { buffer = bufnr, silent = true }
+          vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, opts)
+          
+          -- 禁用特定客户端的格式化（如果使用其他格式化工具）
+          client.server_capabilities.documentFormattingProvider = false
+        end,
+        settings = {
+          Lua = {
+            runtime = {
+              version = 'LuaJIT',
+              path = vim.split(package.path, ';')
+            },
+            diagnostics = {
+              globals = { 'vim' }
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false
+            },
+            telemetry = {
+              enable = false
             }
           }
         }
