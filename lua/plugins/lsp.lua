@@ -76,9 +76,6 @@ return {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
     },
-    opts = {
-      ensure_installed = { "clangd" }, -- 自动安装的LSP
-   }
   },
 
   -- LSP 核心配置
