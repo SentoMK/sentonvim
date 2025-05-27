@@ -125,6 +125,33 @@ return {
           semanticHighlighting = true
         }
       })
+      
+      require('lspconfig').rust_analyzer.setup({
+        capabilities = capabilities,
+        on_attach = function(client, bufnr)
+          -- 自定义快捷键
+          local opts = { buffer = bufnr, silent = true }
+          vim.keymap.set('n', '<leader>rf', vim.lsp.buf.format, opts)
+          
+          -- 禁用特定客户端的格式化（如果使用其他格式化工具）
+          client.server_capabilities.documentFormattingProvider = false
+        end,
+        settings = {
+          ["rust-analyzer"] = {
+            assist = {
+              importGranularity = "module",
+              importPrefix = "by_self"
+            },
+            cargo = {
+              loadOutDirsFromCheck = true
+            },
+            procMacro = {
+              enable = true
+            }
+          }
+        }
+      })
+
       -- 全局LSP配置（适用于所有语言服务器）
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(args)
@@ -137,7 +164,7 @@ return {
     end
   },
 
-   -- 可选：增强诊断显示
+  -- 可选：增强诊断显示
   {
     "folke/trouble.nvim",
     opts = {
